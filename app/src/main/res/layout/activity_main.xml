@@ -5,6 +5,6 @@
     android:name="com.nambv.android_tv_sample.MainFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.nambv.android_tv_sample.MainActivity"
+    tools:context=".MainActivity"
     tools:deviceIds="tv"
     tools:ignore="MergeRootFrame" />

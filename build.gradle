@@ -22,6 +22,21 @@ allprojects {
     }
 }
 
+ext {
+    min_sdk_version = 17
+    target_sdk_version = 27
+    compile_sdk_version = 27
+    build_tools_version = "27.0.0"
+    play_services_version = "11.6.0"
+    support_library_version = "27.0.1"
+    retrofit_version = "2.3.0"
+    rxjava_version = "2.1.0"
+    rxandroid_version = "2.0.1"
+    dagger_version = "2.12"
+    permission_dispatcher_version = "3.0.1"
+    glide_version = "4.0.0"
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
