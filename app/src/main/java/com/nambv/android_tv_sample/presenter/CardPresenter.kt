@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.nambv.android_tv_sample.R
 import com.nambv.android_tv_sample.data.models.Movie
+import com.nambv.android_tv_sample.util.loadImage
 
 /*
 **
@@ -25,8 +26,8 @@ class CardPresenter : Presenter() {
     private var mContext: Context? = null
 
     companion object {
-        val CARD_WIDTH = 313
-        val CARD_HEIGHT = 176
+        val CARD_WIDTH = 275
+        val CARD_HEIGHT = 375
     }
 
     class ViewHolder(view: View) : Presenter.ViewHolder(view) {
@@ -62,6 +63,7 @@ class CardPresenter : Presenter() {
         viewHolder.mCardView?.contentText = movie.getOverview()
         viewHolder.mCardView?.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT)
         viewHolder.mCardView?.mainImage = ContextCompat.getDrawable(mContext!!, R.drawable.movie)
+        viewHolder.mCardView?.loadImage(movie.getPosterPath())
     }
 
     override fun onUnbindViewHolder(viewHolder: Presenter.ViewHolder?) = Unit

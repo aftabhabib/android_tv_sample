@@ -68,6 +68,7 @@ public class MainFragment extends BrowseFragment {
             Movie movie = new Movie();
             movie.setTitle("Devil May Cry " + i);
             movie.setOverview("Description here");
+            movie.setPosterPath("http://heavyarm-asia.com/wp-content/uploads/2017/12/ps4-devil-may-cry.jpg");
             cardRowAdapter.add(movie);
         }
 

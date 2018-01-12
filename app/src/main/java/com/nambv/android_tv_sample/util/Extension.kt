@@ -4,8 +4,10 @@ package com.nambv.android_tv_sample.util
 
 import android.content.Context
 import android.graphics.Point
+import android.support.v17.leanback.widget.ImageCardView
 import android.view.WindowManager
 import android.widget.Toast
+import com.bumptech.glide.Glide
 
 
 /**
@@ -67,4 +69,10 @@ fun formatMillis(millis: Int): String {
     }
 
     return result
+}
+
+fun ImageCardView.loadImage(url: String?) {
+    Glide.with(context)
+            .load(url)
+            .into(this.mainImageView)
 }
