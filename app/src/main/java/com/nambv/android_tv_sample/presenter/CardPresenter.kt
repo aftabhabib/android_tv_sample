@@ -32,13 +32,7 @@ class CardPresenter : Presenter() {
 
     class ViewHolder(view: View) : Presenter.ViewHolder(view) {
 
-        private var mMovie: Movie? = null
         var mCardView: ImageCardView? = null
-
-        fun setMovie(movie: Movie) {
-            mMovie = movie
-        }
-
         init {
             mCardView = view as ImageCardView
         }
@@ -57,9 +51,8 @@ class CardPresenter : Presenter() {
 
     override fun onBindViewHolder(viewHolder: Presenter.ViewHolder?, item: Any?) {
         val movie = item as Movie
-        (viewHolder as ViewHolder).setMovie(movie)
 
-        viewHolder.mCardView?.titleText = movie.getTitle()
+        (viewHolder as ViewHolder).mCardView?.titleText = movie.getTitle()
         viewHolder.mCardView?.contentText = movie.getOverview()
         viewHolder.mCardView?.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT)
         viewHolder.mCardView?.mainImage = ContextCompat.getDrawable(mContext!!, R.drawable.movie)
