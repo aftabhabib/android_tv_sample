@@ -16,12 +16,13 @@ import android.support.v17.leanback.widget.RowPresenter;
 import com.nambv.android_tv_sample.GlideBackgroundManager;
 import com.nambv.android_tv_sample.R;
 import com.nambv.android_tv_sample.data.models.Movie;
+import com.nambv.android_tv_sample.details.DetailsActivity;
 import com.nambv.android_tv_sample.presenter.CardPresenter;
 import com.nambv.android_tv_sample.presenter.GridItemPresenter;
 
 /**
  * BrowseFragment class is supplied by Android SDK Leanback library, and it creates standard UI for Android TV application
- *
+ * <p>
  * BrowseFragment supports to set listener when the itemview is selected & clicked.
  * Current target is to be get notified when the user move the cursor and change the selection of item.
  */
@@ -46,7 +47,7 @@ public class MainFragment extends BrowseFragment {
         // Use this to display logo app
 //         setBadgeDrawable(getActivity().getResources().getDrawable(R.drawable.app_icon_your_company));
 
-         // Use this to display title
+        // Use this to display title
         setTitle("Hello Android TV!"); // Badge, when set, takes precedent
 
         // over title
@@ -93,6 +94,7 @@ public class MainFragment extends BrowseFragment {
 
     private void setupEventListeners() {
         setOnItemViewSelectedListener(new ItemViewSelectedListener());
+        setOnItemViewClickedListener(new ItemViewClickedListener());
     }
 
     private final class ItemViewSelectedListener implements OnItemViewSelectedListener {
@@ -104,9 +106,7 @@ public class MainFragment extends BrowseFragment {
             if (item instanceof String) {
                 simpleBackgroundManager.updateBackgroundWithDelay("https://cdn3.dualshockers.com/wp-content/uploads/2015/05/maxresdefault2.jpg");
             } else if (item instanceof Movie) {
-                if (getActivity() != null) {
-                    simpleBackgroundManager.updateBackgroundWithDelay(((Movie) item).getBackdropPath());
-                }
+                simpleBackgroundManager.updateBackgroundWithDelay(((Movie) item).getBackdropPath());
             }
         }
     }
@@ -115,7 +115,12 @@ public class MainFragment extends BrowseFragment {
 
         @Override
         public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
+
             // Each time the item is clicked, code inside here will be executed.
+            if (item instanceof Movie) {
+                Movie movie = (Movie) item;
+                getActivity().startActivity(DetailsActivity.Companion.getInstance(getActivity(), movie));
+            }
         }
     }
 }

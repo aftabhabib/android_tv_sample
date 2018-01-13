@@ -12,45 +12,39 @@ import com.google.gson.annotations.SerializedName
  * @since 10/8/16.
  */
 
-class Movie : Parcelable {
+data class Movie(
 
-    private var id: String? = null
+        private var id: String? = null,
+        @SerializedName("poster_path")
+        private var posterPath: String? = null,
+        private var adult: Boolean = false,
+        private var overview: String? = null,
+        @SerializedName("release_date")
+        private var releaseDate: String? = null,
 
-    @SerializedName("poster_path")
-    private var posterPath: String? = null
+        @SerializedName("genre_ids")
+        private var genreIds: List<String>? = null,
 
-    private var adult: Boolean = false
-    private var overview: String? = null
+        @SerializedName("original_title")
+        private var originalTitle: String? = null,
 
-    @SerializedName("release_date")
-    private var releaseDate: String? = null
+        @SerializedName("original_language")
+        private var originalLanguage: String? = null,
 
-    @SerializedName("genre_ids")
-    private var genreIds: List<String>? = null
+        private var title: String? = null,
 
-    @SerializedName("original_title")
-    private var originalTitle: String? = null
+        @SerializedName("backdrop_path")
+        private var backdropPath: String? = null,
 
-    @SerializedName("original_language")
-    private var originalLanguage: String? = null
+        private var popularity: Float = 0.toFloat(),
 
-    private var title: String? = null
+        @SerializedName("vote_count")
+        private var voteCount: Int = 0,
 
-    @SerializedName("backdrop_path")
-    private var backdropPath: String? = null
+        private var video: Boolean = false,
 
-    private var popularity: Float = 0.toFloat()
-
-    @SerializedName("vote_count")
-    private var voteCount: Int = 0
-
-    private var video: Boolean = false
-
-    @SerializedName("vote_average")
-    private var voteAverage: Float = 0.toFloat()
-
-    constructor() {}
-
+        @SerializedName("vote_average")
+        private var voteAverage: Float = 0.toFloat()) : Parcelable {
     fun getId(): String? {
         return id
     }
@@ -177,54 +171,47 @@ class Movie : Parcelable {
         return this
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+    constructor(source: Parcel) : this(
+            source.readString(),
+            source.readString(),
+            1 == source.readInt(),
+            source.readString(),
+            source.readString(),
+            source.createStringArrayList(),
+            source.readString(),
+            source.readString(),
+            source.readString(),
+            source.readString(),
+            source.readFloat(),
+            source.readInt(),
+            1 == source.readInt(),
+            source.readFloat()
+    )
 
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeString(this.id)
-        dest.writeString(this.posterPath)
-        dest.writeByte(if (this.adult) 1.toByte() else 0.toByte())
-        dest.writeString(this.overview)
-        dest.writeString(this.releaseDate)
-        dest.writeStringList(this.genreIds)
-        dest.writeString(this.originalTitle)
-        dest.writeString(this.originalLanguage)
-        dest.writeString(this.title)
-        dest.writeString(this.backdropPath)
-        dest.writeFloat(this.popularity)
-        dest.writeInt(this.voteCount)
-        dest.writeByte(if (this.video) 1.toByte() else 0.toByte())
-        dest.writeFloat(this.voteAverage)
-    }
+    override fun describeContents() = 0
 
-    protected constructor(`in`: Parcel) {
-        this.id = `in`.readString()
-        this.posterPath = `in`.readString()
-        this.adult = `in`.readByte().toInt() != 0
-        this.overview = `in`.readString()
-        this.releaseDate = `in`.readString()
-        this.genreIds = `in`.createStringArrayList()
-        this.originalTitle = `in`.readString()
-        this.originalLanguage = `in`.readString()
-        this.title = `in`.readString()
-        this.backdropPath = `in`.readString()
-        this.popularity = `in`.readFloat()
-        this.voteCount = `in`.readInt()
-        this.video = `in`.readByte().toInt() != 0
-        this.voteAverage = `in`.readFloat()
+    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeString(id)
+        writeString(posterPath)
+        writeInt((if (adult) 1 else 0))
+        writeString(overview)
+        writeString(releaseDate)
+        writeStringList(genreIds)
+        writeString(originalTitle)
+        writeString(originalLanguage)
+        writeString(title)
+        writeString(backdropPath)
+        writeFloat(popularity)
+        writeInt(voteCount)
+        writeInt((if (video) 1 else 0))
+        writeFloat(voteAverage)
     }
 
     companion object {
-
+        @JvmField
         val CREATOR: Parcelable.Creator<Movie> = object : Parcelable.Creator<Movie> {
-            override fun createFromParcel(source: Parcel): Movie {
-                return Movie(source)
-            }
-
-            override fun newArray(size: Int): Array<Movie?> {
-                return arrayOfNulls(size)
-            }
+            override fun createFromParcel(source: Parcel): Movie = Movie(source)
+            override fun newArray(size: Int): Array<Movie?> = arrayOfNulls(size)
         }
     }
 }

@@ -3,11 +3,16 @@
 package com.nambv.android_tv_sample.util
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Point
+import android.support.v17.leanback.widget.DetailsOverviewRow
 import android.support.v17.leanback.widget.ImageCardView
 import android.view.WindowManager
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 
 
 /**
@@ -75,4 +80,18 @@ fun ImageCardView.loadImage(url: String?) {
     Glide.with(context)
             .load(url)
             .into(this.mainImageView)
+}
+
+fun loadImageBitmap(context: Context?, url: String?, width: Int, height: Int, row: DetailsOverviewRow) {
+
+    val poster = Glide.with(context)
+            .asBitmap()
+            .load(url)
+            .apply(RequestOptions()
+                    .centerCrop()
+                    .override(width, height)
+            )
+            .submit()
+
+    row.setImageBitmap(context, poster.get())
 }
