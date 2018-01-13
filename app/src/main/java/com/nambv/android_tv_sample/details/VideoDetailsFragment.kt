@@ -23,9 +23,12 @@ class VideoDetailsFragment : DetailsFragment() {
     private var mDetailOverviewRowPresenter: CustomFullWidthDetailsOverviewRowPresenter? = null
 
     companion object {
+        const val DETAIL_THUMB_WIDTH = 275
+        const val DETAIL_THUMB_HEIGHT = 375
 
-        final val DETAIL_THUMB_WIDTH = 274
-        final val DETAIL_THUMB_HEIGHT = 274
+        const val ACTION_WATCH_VIDEO = 1
+        const val ACTION_VIEW_TRAILER = 2
+        const val ACTION_DOWNLOAD = 3
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,9 +50,19 @@ class VideoDetailsFragment : DetailsFragment() {
                 .subscribeWith(object : DisposableSingleObserver<DetailsOverviewRow>() {
                     override fun onSuccess(row: DetailsOverviewRow) {
 
+                        // 1st row: Display details Action Row
+                        val sparseArrayObjectAdapter = SparseArrayObjectAdapter()
+                        sparseArrayObjectAdapter.set(ACTION_WATCH_VIDEO, Action(ACTION_WATCH_VIDEO.toLong(), "Watch Video", ""))
+                        sparseArrayObjectAdapter.set(ACTION_VIEW_TRAILER, Action(ACTION_VIEW_TRAILER.toLong(), "View Trailer", ""))
+                        sparseArrayObjectAdapter.set(ACTION_DOWNLOAD, Action(ACTION_DOWNLOAD.toLong(), "Download", ""))
+
+                        row.actionsAdapter = sparseArrayObjectAdapter
+
+
                         val listRowAdapter = ArrayObjectAdapter(CardPresenter())
                         val headerItem = HeaderItem(0, "Related Videos")
 
+                        // 2nd row: Display movie detail information
                         mDetailOverviewRowPresenter?.initialState = FullWidthDetailsOverviewRowPresenter.STATE_SMALL
 
                         val classPresenterSelector = ClassPresenterSelector()
