@@ -61,7 +61,7 @@ public class MainFragment extends BrowseFragment {
 
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
 
-        HeaderItem gridItemPresenterHeader = new HeaderItem(0, "Grid Item Presenter");
+        HeaderItem gridItemPresenterHeader = new HeaderItem(0, "Sample Grid Data");
 
         GridItemPresenter mGridPresenter = new GridItemPresenter();
         ArrayObjectAdapter gridRowAdapter = new ArrayObjectAdapter(mGridPresenter);
@@ -72,7 +72,7 @@ public class MainFragment extends BrowseFragment {
 
         mRowsAdapter.add(new ListRow(gridItemPresenterHeader, gridRowAdapter));
 
-        HeaderItem cardPresenterHeader = new HeaderItem(1, "CardPresenter");
+        HeaderItem cardPresenterHeader = new HeaderItem(1, "Series Devil May Cry");
         CardPresenter cardPresenter = new CardPresenter();
         ArrayObjectAdapter cardRowAdapter = new ArrayObjectAdapter(cardPresenter);
 
