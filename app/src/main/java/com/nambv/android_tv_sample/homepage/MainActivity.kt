@@ -1,8 +1,9 @@
 
-package com.nambv.android_tv_sample
+package com.nambv.android_tv_sample.homepage
 
 import android.app.Activity
 import android.os.Bundle
+import com.nambv.android_tv_sample.R
 
 class MainActivity : Activity() {
 

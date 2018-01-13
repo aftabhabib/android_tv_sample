@@ -36,7 +36,7 @@ public class GlideBackgroundManager {
 
     Timer mBackgroundTimer; // null when no UpdateBackgroundTask is running.
 
-    GlideBackgroundManager(Activity activity) {
+    public GlideBackgroundManager(Activity activity) {
         mActivity = activity;
         mDefaultBackground = activity.getDrawable(DEFAULT_BACKGROUND_RES_ID);
         mBackgroundTarget = BackgroundManager.getInstance(activity);
@@ -75,7 +75,7 @@ public class GlideBackgroundManager {
         }
     }
 
-    void updateBackgroundWithDelay(String url) {
+    public void updateBackgroundWithDelay(String url) {
         try {
             URI uri = new URI(url);
             updateBackgroundWithDelay(uri);
@@ -90,7 +90,7 @@ public class GlideBackgroundManager {
      * delay time is measured in other Timer task thread.
      * @param uri
      */
-    public void updateBackgroundWithDelay(URI uri) {
+    private void updateBackgroundWithDelay(URI uri) {
         mBackgroundURI = uri;
         startBackgroundTimer();
     }

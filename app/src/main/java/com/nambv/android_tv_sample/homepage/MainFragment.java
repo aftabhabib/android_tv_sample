@@ -1,4 +1,4 @@
-package com.nambv.android_tv_sample;
+package com.nambv.android_tv_sample.homepage;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +13,8 @@ import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 
+import com.nambv.android_tv_sample.GlideBackgroundManager;
+import com.nambv.android_tv_sample.R;
 import com.nambv.android_tv_sample.data.models.Movie;
 import com.nambv.android_tv_sample.presenter.CardPresenter;
 import com.nambv.android_tv_sample.presenter.GridItemPresenter;
