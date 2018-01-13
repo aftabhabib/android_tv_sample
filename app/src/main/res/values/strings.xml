@@ -14,6 +14,13 @@
     <string name="movie">Movie</string>
     <string name="should_start">shouldStart</string>
 
+    <string name="sample_item_description">
+        Devil May Cry is a hack and slash video game series developed by Capcom and created by Hideki Kamiya. Originally intended to be a sequel in Capcom\'s Resident Evil series, in development it became such a radical departure from the series\' style that it was developed into a new property entirely. The series centers on the main character Dante\'s goal of avenging his mother's murder by exterminating demons. The gameplay consists of heavy combat scenes in which the player must attempt to extend long chains of attacks while avoiding damage in order to exhibit stylized combat; this element along with time and the number of items collected and used are taken under consideration when grading the player's performance.
+    </string>
+
+    <string name="msg_error_fragment">An error occurred</string>
+    <string name="label_dismiss_error">Dismiss</string>
+
     <!-- Error messages -->
     <string name="video_error_media_load_timeout">Media loading timed out</string>
     <string name="video_error_server_inaccessible">Media server was not reachable</string>

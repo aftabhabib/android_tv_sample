@@ -17,6 +17,8 @@ import com.nambv.android_tv_sample.GlideBackgroundManager;
 import com.nambv.android_tv_sample.R;
 import com.nambv.android_tv_sample.data.models.Movie;
 import com.nambv.android_tv_sample.details.DetailsActivity;
+import com.nambv.android_tv_sample.error.ErrorActivity;
+import com.nambv.android_tv_sample.error.MainErrorFragment;
 import com.nambv.android_tv_sample.presenter.CardPresenter;
 import com.nambv.android_tv_sample.presenter.GridItemPresenter;
 
@@ -69,7 +71,7 @@ public class MainFragment extends BrowseFragment {
         GridItemPresenter mGridPresenter = new GridItemPresenter();
         ArrayObjectAdapter gridRowAdapter = new ArrayObjectAdapter(mGridPresenter);
 
-        gridRowAdapter.add("ITEM 1");
+        gridRowAdapter.add("Show Error");
         gridRowAdapter.add("ITEM 2");
         gridRowAdapter.add("ITEM 3");
 
@@ -82,7 +84,8 @@ public class MainFragment extends BrowseFragment {
         for (int i = 1; i <= 10; i++) {
             Movie movie = new Movie();
             movie.setTitle("Devil May Cry " + i);
-            movie.setOverview("Description here");
+            movie.setOriginalTitle("Capcom");
+            movie.setOverview(getString(R.string.sample_item_description));
             movie.setPosterPath("http://heavyarm-asia.com/wp-content/uploads/2017/12/ps4-devil-may-cry.jpg");
             movie.setBackdropPath("https://static.zerochan.net/Vergil.%28Devil.May.Cry%29.full.1862449.jpg");
             cardRowAdapter.add(movie);
@@ -120,6 +123,9 @@ public class MainFragment extends BrowseFragment {
             if (item instanceof Movie) {
                 Movie movie = (Movie) item;
                 getActivity().startActivity(DetailsActivity.Companion.getInstance(getActivity(), movie));
+            } else if (item instanceof String) {
+                if (item.equals("Show Error"))
+                    getActivity().startActivity(ErrorActivity.Companion.getInstance(getActivity()));
             }
         }
     }

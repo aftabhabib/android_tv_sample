@@ -36,7 +36,8 @@
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".details.DetailsActivity"></activity>
+        <activity android:name=".details.DetailsActivity" />
+        <activity android:name=".error.ErrorActivity"></activity>
     </application>
 
 </manifest>

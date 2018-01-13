@@ -53,7 +53,7 @@ class CardPresenter : Presenter() {
         val movie = item as Movie
 
         (viewHolder as ViewHolder).mCardView?.titleText = movie.getTitle()
-        viewHolder.mCardView?.contentText = movie.getOverview()
+        viewHolder.mCardView?.contentText = movie.getOriginalTitle()
         viewHolder.mCardView?.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT)
         viewHolder.mCardView?.mainImage = ContextCompat.getDrawable(mContext!!, R.drawable.movie)
         viewHolder.mCardView?.loadImage(movie.getPosterPath())

@@ -9,6 +9,7 @@ import com.nambv.android_tv_sample.data.models.Movie
 import com.nambv.android_tv_sample.presenter.CardPresenter
 import com.nambv.android_tv_sample.util.convertDpToPixel
 import com.nambv.android_tv_sample.util.loadImageBitmap
+import com.nambv.android_tv_sample.util.showToast
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
@@ -50,7 +51,7 @@ class VideoDetailsFragment : DetailsFragment() {
                 .subscribeWith(object : DisposableSingleObserver<DetailsOverviewRow>() {
                     override fun onSuccess(row: DetailsOverviewRow) {
 
-                        // 1st row: Display details Action Row
+                        // 1st section: Display details Action Row
                         val sparseArrayObjectAdapter = SparseArrayObjectAdapter()
                         sparseArrayObjectAdapter.set(ACTION_WATCH_VIDEO, Action(ACTION_WATCH_VIDEO.toLong(), "Watch Video", ""))
                         sparseArrayObjectAdapter.set(ACTION_VIEW_TRAILER, Action(ACTION_VIEW_TRAILER.toLong(), "View Trailer", ""))
@@ -58,11 +59,22 @@ class VideoDetailsFragment : DetailsFragment() {
 
                         row.actionsAdapter = sparseArrayObjectAdapter
 
-
-                        val listRowAdapter = ArrayObjectAdapter(CardPresenter())
                         val headerItem = HeaderItem(0, "Related Videos")
+                        val listRowAdapter = ArrayObjectAdapter(CardPresenter())
+                        for (i in 1..10) {
+                            val movie = Movie()
+                            when {
+                                i % 3 == 0 -> movie.setPosterPath("http://heimkehrend.raindrop.jp/kl-hacker/wp-content/uploads/2014/08/DSC02580.jpg")
+                                i % 3 == 1 -> movie.setPosterPath("http://heimkehrend.raindrop.jp/kl-hacker/wp-content/uploads/2014/08/DSC02630.jpg")
+                                else -> movie.setPosterPath("http://heimkehrend.raindrop.jp/kl-hacker/wp-content/uploads/2014/08/DSC02529.jpg")
+                            }
+                            movie.setTitle("Devil May Cry " + i)
+                            movie.setOriginalTitle("Capcom")
 
-                        // 2nd row: Display movie detail information
+                            listRowAdapter.add(movie)
+                        }
+
+                        // 2nd row: Display movie detail information and relative videos
                         mDetailOverviewRowPresenter?.initialState = FullWidthDetailsOverviewRowPresenter.STATE_SMALL
 
                         val classPresenterSelector = ClassPresenterSelector()
@@ -70,12 +82,19 @@ class VideoDetailsFragment : DetailsFragment() {
                         classPresenterSelector.addClassPresenter(ListRow::class.java, ListRowPresenter())
 
                         val adapter = ArrayObjectAdapter(classPresenterSelector)
+
+                        // Add detail row into adapter
                         adapter.add(row)
 
+                        // Add relative videos row into adapter
+                        adapter.add(ListRow(headerItem, listRowAdapter))
+
+                        // Bind adapter
                         setAdapter(adapter)
                     }
 
                     override fun onError(e: Throwable) {
+                        activity.showToast(e.message as String)
                     }
                 })
     }
