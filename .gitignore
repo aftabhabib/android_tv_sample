@@ -65,3 +65,7 @@ freeline/
 freeline_project_description.json
 app/libs/
 /.gitignore
+/.idea/emacs.xml
+!/.idea/emacs.xml
+/.idea/
+!/.idea/
