@@ -1,11 +1,14 @@
 package com.nambv.android_tv_sample.details
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v17.leanback.app.DetailsFragment
 import android.support.v17.leanback.widget.*
 import android.support.v17.leanback.widget.ListRow
 import com.nambv.android_tv_sample.GlideBackgroundManager
 import com.nambv.android_tv_sample.data.models.Movie
+import com.nambv.android_tv_sample.error.ErrorActivity
 import com.nambv.android_tv_sample.presenter.CardPresenter
 import com.nambv.android_tv_sample.util.convertDpToPixel
 import com.nambv.android_tv_sample.util.loadImageBitmap
@@ -27,7 +30,7 @@ class VideoDetailsFragment : DetailsFragment() {
         const val DETAIL_THUMB_WIDTH = 275
         const val DETAIL_THUMB_HEIGHT = 375
 
-        const val ACTION_WATCH_VIDEO = 1
+        const val ACTION_BUY_GAME = 1
         const val ACTION_VIEW_TRAILER = 2
         const val ACTION_DOWNLOAD = 3
     }
@@ -53,11 +56,34 @@ class VideoDetailsFragment : DetailsFragment() {
 
                         // 1st section: Display details Action Row
                         val sparseArrayObjectAdapter = SparseArrayObjectAdapter()
-                        sparseArrayObjectAdapter.set(ACTION_WATCH_VIDEO, Action(ACTION_WATCH_VIDEO.toLong(), "Watch Video", ""))
-                        sparseArrayObjectAdapter.set(ACTION_VIEW_TRAILER, Action(ACTION_VIEW_TRAILER.toLong(), "View Trailer", ""))
-                        sparseArrayObjectAdapter.set(ACTION_DOWNLOAD, Action(ACTION_DOWNLOAD.toLong(), "Download", ""))
+                        sparseArrayObjectAdapter.set(ACTION_BUY_GAME, Action(ACTION_BUY_GAME.toLong(), "Buy This", "Game"))
+                        sparseArrayObjectAdapter.set(ACTION_VIEW_TRAILER, Action(ACTION_VIEW_TRAILER.toLong(), "Watch Trailer", "Free"))
+                        sparseArrayObjectAdapter.set(ACTION_DOWNLOAD, Action(ACTION_DOWNLOAD.toLong(), "Download"))
 
                         row.actionsAdapter = sparseArrayObjectAdapter
+
+                        mDetailOverviewRowPresenter?.setOnActionClickedListener { action ->
+
+                            when (action.id) {
+
+                                // Navigate to PlayStation Store
+                                ACTION_BUY_GAME.toLong() -> {
+                                    val intent = Intent(Intent.ACTION_VIEW)
+                                    intent.data = Uri.parse("https://store.playstation.com/en-us/product/UP0102-CUSA01671_00-MAINRDOBXXXX0000")
+                                    startActivity(intent)
+                                }
+
+                                // Open youtube link
+                                ACTION_VIEW_TRAILER.toLong() -> {
+
+                                }
+
+                                // ACTION_DOWNLOAD: Currently will display error view
+                                else -> {
+                                    activity.startActivity(ErrorActivity.getIntent(activity))
+                                }
+                            }
+                        }
 
                         val headerItem = HeaderItem(0, "Related Videos")
                         val listRowAdapter = ArrayObjectAdapter(CardPresenter())

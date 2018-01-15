@@ -11,7 +11,7 @@ class ErrorActivity : Activity() {
     private lateinit var mErrorFragment: MainErrorFragment
 
     companion object {
-        fun getInstance(context: Context) = Intent(context, ErrorActivity::class.java)
+        fun getIntent(context: Context) = Intent(context, ErrorActivity::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

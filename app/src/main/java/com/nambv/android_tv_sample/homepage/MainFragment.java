@@ -17,8 +17,6 @@ import com.nambv.android_tv_sample.GlideBackgroundManager;
 import com.nambv.android_tv_sample.R;
 import com.nambv.android_tv_sample.data.models.Movie;
 import com.nambv.android_tv_sample.details.DetailsActivity;
-import com.nambv.android_tv_sample.error.ErrorActivity;
-import com.nambv.android_tv_sample.error.MainErrorFragment;
 import com.nambv.android_tv_sample.presenter.CardPresenter;
 import com.nambv.android_tv_sample.presenter.GridItemPresenter;
 
@@ -50,7 +48,7 @@ public class MainFragment extends BrowseFragment {
 //         setBadgeDrawable(getActivity().getResources().getDrawable(R.drawable.app_icon_your_company));
 
         // Use this to display title
-        setTitle("Hello Android TV!"); // Badge, when set, takes precedent
+        setTitle(getString(R.string.label_main_title)); // Badge, when set, takes precedent
 
         // over title
         setHeadersState(HEADERS_ENABLED);
@@ -71,7 +69,7 @@ public class MainFragment extends BrowseFragment {
         GridItemPresenter mGridPresenter = new GridItemPresenter();
         ArrayObjectAdapter gridRowAdapter = new ArrayObjectAdapter(mGridPresenter);
 
-        gridRowAdapter.add("Show Error");
+        gridRowAdapter.add("ITEM 1");
         gridRowAdapter.add("ITEM 2");
         gridRowAdapter.add("ITEM 3");
 
@@ -123,9 +121,6 @@ public class MainFragment extends BrowseFragment {
             if (item instanceof Movie) {
                 Movie movie = (Movie) item;
                 getActivity().startActivity(DetailsActivity.Companion.getInstance(getActivity(), movie));
-            } else if (item instanceof String) {
-                if (item.equals("Show Error"))
-                    getActivity().startActivity(ErrorActivity.Companion.getInstance(getActivity()));
             }
         }
     }

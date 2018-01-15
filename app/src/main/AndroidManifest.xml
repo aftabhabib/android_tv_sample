@@ -37,7 +37,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".details.DetailsActivity" />
-        <activity android:name=".error.ErrorActivity"></activity>
+        <activity android:name=".error.ErrorActivity" />
     </application>
 
 </manifest>
